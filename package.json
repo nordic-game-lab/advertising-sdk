@@ -1,0 +1,28 @@
+{
+  "name": "advertising-sdk",
+  "version": "1.0.0",
+  "description": "This is the Advertising sdk for Nordic Game LLC websites",
+  "main": "dist/ads.min.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "./node_modules/uglify-js/bin/uglifyjs ads.js --keep-fnames --module --compress --mangle -o ads.min.js --source-map \"url='https://static.nordicgamelab.org/v1/ads.min.js.map'\" && mkdir dist && mv ads.min.js dist/ads.min.js && mv ads.min.js.map dist/ads.min.js.map",
+    "lint": "npx eslint ads.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nordic-game-lab/advertising-sdk.git"
+  },
+  "author": "Nordic Game Lab LLC",
+  "license": "SEE LICENSE IN LICENSE",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/nordic-game-lab/advertising-sdk/issues"
+  },
+  "homepage": "https://github.com/nordic-game-lab/advertising-sdk#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.2.0",
+    "eslint": "^9.2.0",
+    "globals": "^15.2.0",
+    "uglify-js": "^3.17.4"
+  }
+}

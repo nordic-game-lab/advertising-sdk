@@ -1,5 +1,5 @@
-/* @license 
-* Copyright (c) 2024 Nordic Game Lab LLC
+/** 
+* @license Copyright (c) 2024 Nordic Game Lab LLC
 * You may not use this code without the express permission in writing of Nordic Game Lab LLC.
 */
 export default async function createAdElement(imageSize = '100px', siteID) {

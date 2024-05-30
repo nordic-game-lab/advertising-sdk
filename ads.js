@@ -25,16 +25,18 @@ function getCookie(name) {
 
 // Create an advertising cookie with a random UUID
 function createAdvertisingCookieWithRandomUUID(name, daysToExpire) {
-  const existingValue = getCookie('ad_tracking');
+  const existingValue = getCookie(name);
   if(existingValue){
   const randomUUID = generateUUID();
   const expires = new Date();
   expires.setTime(expires.getTime() + daysToExpire * 24 * 60 * 60 * 1000);
 
   // Set the cookie with the specified name, random UUID value, and expiration date
-  window.document.cookie = `${name}=${randomUUID}; expires=${expires.toUTCString()}; path=/; domain=.nordicgamelab.org`;
+  window.document.cookie = `${name}=${randomUUID}; expires=${expires.toUTCString()}; path=/; domain=nordicgamelab.org`;
 
   console.log(`Advertising cookie "${name}" created with random UUID "${randomUUID}" and will expire in ${daysToExpire} days.`);
+  }else{
+    console.log(`Advertising cookie "${name}" already exists.`)
   }
 }
 

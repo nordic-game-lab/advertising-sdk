@@ -1,11 +1,11 @@
 {
   "name": "advertising-sdk",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "This is the Advertising sdk for Nordic Game LLC websites",
   "main": "dist/ads.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "./node_modules/uglify-js/bin/uglifyjs ads.js --keep-fnames --module --compress --mangle -o ads.min.js --source-map \"url='https://static.nordicgamelab.org/v1/ads.min.js.map'\" && mkdir dist && mv ads.min.js dist/ads.min.js && mv ads.min.js.map dist/ads.min.js.map",
+    "build": "./node_modules/uglify-js/bin/uglifyjs ads.js --module --compress --mangle -o ads.min.js --source-map \"url='https://static.nordicgamelab.org/v1/ads.min.js.map'\" && mkdir dist && mv ads.min.js dist/ads.min.js && mv ads.min.js.map dist/ads.min.js.map",
     "lint": "npx eslint ads.js"
   },
   "repository": {
@@ -16,7 +16,7 @@
   "license": "SEE LICENSE IN LICENSE",
   "type": "module",
   "bugs": {
-    "url": "https://github.com/nordic-game-lab/advertising-sdk/issues"
+    "url": "https://nordicgamelab.atlassian.net/servicedesk/customer/portal/5"
   },
   "homepage": "https://github.com/nordic-game-lab/advertising-sdk#readme",
   "devDependencies": {

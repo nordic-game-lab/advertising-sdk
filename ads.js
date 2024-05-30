@@ -2,28 +2,66 @@
 * @license Copyright (c) 2024 Nordic Game Lab LLC
 * You may not use this code without the express permission in writing of Nordic Game Lab LLC.
 */
-export default async function createAdElement(imageSize = '100px', siteID) {
-  
- try {
-    const host = window.location.hostname;
-    const response = await fetch(`https://api.nordicgamelab.org/ads?siteid=${siteID}`);
-    const adData = await response.json();
-    const subDomain = host.split('.');
-   // Creates the new link with all required utm parameters
-    const adLink = `${adData.link}?utm_source=${subDomain[0]}&utm_medium=banner&utm_campaign=${adData.campaign}&ref=${host}`;
+// Generate a random UUID
+function generateUUID() {
+  // Adapted from https://stackoverflow.com/a/2117523/1234567
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    const r = (Math.random() * 16) | 0;
+    const v = c === 'x' ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+}
+// find if the cookie exists
+function getCookie(name) {
+  const cookies = window.document.cookie.split(';');
+  for (const cookie of cookies) {
+    const [cookieName, cookieValue] = cookie.trim().split('=');
+    if (cookieName === name) {
+      return cookieValue;
+    }
+  }
+  return null; // Cookie not found
+}
 
-    const anchorElement = document.createElement('a');
-    anchorElement.href = adLink;
+// Create an advertising cookie with a random UUID
+function createAdvertisingCookieWithRandomUUID(name, daysToExpire) {
+  const existingValue = getCookie('ad_tracking');
+  if(existingValue){
+  const randomUUID = generateUUID();
+  const expires = new Date();
+  expires.setTime(expires.getTime() + daysToExpire * 24 * 60 * 60 * 1000);
 
-    const imageElement = document.createElement('img');
-    imageElement.src = adData.imageURL;
-    imageElement.alt = 'Advertisement Image';
-    imageElement.style.width = imageSize;
+  // Set the cookie with the specified name, random UUID value, and expiration date
+  window.document.cookie = `${name}=${randomUUID}; expires=${expires.toUTCString()}; path=/; domain=.nordicgamelab.org`;
 
-    anchorElement.appendChild(imageElement);
-    return anchorElement;
-
-  } catch (error) {
-    console.error('Error fetching data:', error);
+  console.log(`Advertising cookie "${name}" created with random UUID "${randomUUID}" and will expire in ${daysToExpire} days.`);
   }
 }
+
+
+export default async function createAdElement(imageSize = '100px', siteID) {
+  
+  try {
+     const host = window.location.hostname;
+     const response = await fetch(`https://api.nordicgamelab.org/ads?siteid=${siteID}`);
+     const adData = await response.json();
+     const subDomain = host.split('.');
+    // Creates the new link with all required utm parameters
+     const adLink = `${adData.link}?utm_source=${subDomain[0]}&utm_medium=banner&utm_campaign=${adData.campaign}&ref=${host}`;
+ 
+     const anchorElement = window.document.createElement('a');
+     anchorElement.href = adLink;
+ 
+     const imageElement = window.document.createElement('img');
+     imageElement.src = adData.imageURL;
+     imageElement.alt = 'Advertisement Image';
+     imageElement.style.width = imageSize;
+ 
+     anchorElement.appendChild(imageElement);
+     createAdvertisingCookieWithRandomUUID('ad_tracking', 30);
+     return anchorElement;
+ 
+   } catch (error) {
+     console.error('Error fetching data:', error);
+   }
+ }

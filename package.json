@@ -1,6 +1,6 @@
 {
   "name": "advertising-sdk",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "This is the Advertising sdk for Nordic Game LLC websites",
   "main": "dist/ads.min.js",
   "scripts": {

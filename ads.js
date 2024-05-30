@@ -13,20 +13,17 @@ function generateUUID() {
 }
 // find if the cookie exists
 function getCookie(name) {
-  const cookies = window.document.cookie.split(';');
-  for (const cookie of cookies) {
-    const [cookieName, cookieValue] = cookie.trim().split('=');
-    if (cookieName === name) {
-      return cookieValue;
-    }
+  if (document.cookie.split(";").some((item) => item.trim().startsWith(name))) {
+    return true;
+  }else {
+    return null; // Cookie not found
   }
-  return null; // Cookie not found
 }
 
 // Create an advertising cookie with a random UUID
 function createAdvertisingCookieWithRandomUUID(name, daysToExpire) {
   const existingValue = getCookie(name);
-  if(existingValue){
+  if(!existingValue){
   const randomUUID = generateUUID();
   const expires = new Date();
   expires.setTime(expires.getTime() + daysToExpire * 24 * 60 * 60 * 1000);

@@ -1,4 +1,4 @@
-name: lint code
+name: test code
 
 on:
   push:
@@ -16,3 +16,11 @@ jobs:
       run: npm i
     - name: lint
       run: npm run lint
+    - name: build
+      run: npm run build
+    - name: copy dist to test directory
+      run: cp -r dist tests/html/dist
+    - name: install playwright
+      run: npx playwright install
+    - name: test
+      run: npm run test

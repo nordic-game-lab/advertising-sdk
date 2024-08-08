@@ -41,8 +41,16 @@ function createAdvertisingCookieWithRandomUUID(name, daysToExpire) {
 export default async function createAdElement(imageSize = '100px', siteID) {
   
   try {
+     const _data = 'data-';
+     const currentScript = window.document.currentScript; // Get the script element that calls this function
+     const attr = currentScript.getAttribute.bind(currentScript);
+     const hostUrl = attr(_data + 'host-url');
+     const apiHost =
+      hostUrl || 'api.nordicgamelab.org';
+     const endpoint = `${apiHost.replace(/\/$/, '')}/ads`;
+     const siteId = siteID || attr(_data + 'site-id');
      const host = window.location.hostname;
-     const response = await fetch(`https://api.nordicgamelab.org/ads?siteid=${siteID}`);
+     const response = await fetch(`https://${endpoint}?siteid=${siteId}`);
      const adData = await response.json();
      const subDomain = host.split('.');
     // Creates the new link with all required utm parameters

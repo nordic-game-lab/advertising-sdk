@@ -18,16 +18,24 @@
      const attr = currentScript.getAttribute.bind(currentScript);
      const imageSize = attr(_data + 'image-size') || '100px';
      const hostUrl = attr(_data + 'host-url');
+     const protocol = attr(_data + 'protocol') || 'https';
      const apiHost =
       hostUrl || 'api.nordicgamelab.org';
      const endpoint = `${apiHost.replace(/\/$/, '')}/ads`;
      const siteId = attr(_data + 'site-id') || 'c3a8c1c5';
      const host = hostname;
-     const response = await fetch(`https://${endpoint}?siteid=${siteId}`);
+     const response = await fetch(`${protocol}://${endpoint}?siteid=${siteId}`);
      const adData = await response.json();
      const subDomain = host.split('.');
     // Creates the new link with all required utm parameters
-     const adLink = `${adData.link}?utm_source=${subDomain[0]}&utm_medium=banner&utm_campaign=${adData.campaign}&ref=${host}`;
+    let adLink;
+    if(apiHost != 'api.nordicgamelab.org'){
+        const redirectLink = `${adData.link}?utm_source=${subDomain[0]}&utm_medium=banner&utm_campaign=${adData.campaign}&ref=${host}`;
+        const adURI = escape(redirectLink);
+        adLink = `${protocol}://${apiHost}/ads/click?siteid=${siteId}&adid=${adData.id}&redirect=${adURI}`;
+     }else{
+        adLink = `${adData.link}?utm_source=${subDomain[0]}&utm_medium=banner&utm_campaign=${adData.campaign}&ref=${host}`;
+     }
  
      const anchorElement = document.createElement('a');
      anchorElement.href = adLink;

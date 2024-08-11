@@ -39,7 +39,7 @@
  
      const anchorElement = document.createElement('a');
      anchorElement.href = adLink;
-     let addContainer = document.getElementById('ad-container');
+     const addContainer = document.getElementById('ad-container');
      const imageElement = document.createElement('img');
      imageElement.src = adData.imageURL;
      imageElement.alt = 'Advertisement Image';
@@ -57,7 +57,7 @@ function generateUUID() {
   });
 }
 // find if the cookie exists
-function getCookie(name) {
+function getCookie(name: string) {
   if (document.cookie.split(";").some((item) => item.trim().startsWith(name))) {
     return true;
   }else {
@@ -66,7 +66,7 @@ function getCookie(name) {
 }
 
 // Create an advertising cookie with a random UUID
-function createAdvertisingCookieWithRandomUUID(name, daysToExpire) {
+function createAdvertisingCookieWithRandomUUID(name: string, daysToExpire: number) {
   const existingValue = getCookie(name);
   if(!existingValue){
   const randomUUID = generateUUID();
@@ -84,11 +84,13 @@ function createAdvertisingCookieWithRandomUUID(name, daysToExpire) {
 
 // Create the advertisement element
 const createAdvertisement = () => {
+  if(addContainer){
   addContainer.appendChild(anchorElement);
+  }
 }
 
      createAdvertisingCookieWithRandomUUID('ad_tracking', 30);
-     let initialized;
+     let initialized: boolean;
      
 
      const init = () => {

@@ -5,8 +5,8 @@
   "main": "dist/ads.min.js",
   "scripts": {
     "test": "npx playwright test tests/sdk.test.js",
-    "build": "npx uglifyjs src/ads.js --module --compress --mangle -o ads.min.js --source-map \"url='https://static.nordicgamelab.org/v1/ads.min.js.map'\" && mkdir dist && mv ads.min.js dist/ads.min.js && mv ads.min.js.map dist/ads.min.js.map",
-    "lint": "npx eslint src/ads.js"
+    "build": "npx tsc && mkdir dist && npx uglifyjs ts/ads.js --module --compress --mangle -o dist/ads.min.js --source-map \"url='https://static.nordicgamelab.org/v1/ads.min.js.map'\"",
+    "lint": "npx eslint src/ads.ts"
   },
   "repository": {
     "type": "git",
@@ -20,13 +20,15 @@
   },
   "homepage": "https://github.com/nordic-game-lab/advertising-sdk#readme",
   "devDependencies": {
-    "@eslint/js": "^9.2.0",
-    "eslint": "^9.2.0",
+    "@eslint/js": "^9.9.0",
+    "eslint": "^9.9.0",
     "express": "^4.19.2",
-    "globals": "^15.2.0",
+    "globals": "^15.9.0",
+    "typescript-eslint": "^8.0.1",
     "uglify-js": "^3.17.4"
   },
   "dependencies": {
-    "@playwright/test": "^1.46.0"
+    "@playwright/test": "^1.46.0",
+    "typescript": "^5.5.4"
   }
 }

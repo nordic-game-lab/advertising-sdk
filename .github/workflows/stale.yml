@@ -6,12 +6,22 @@ on:
 
 jobs:
   stale:
+    permissions:
+        contents: read
+        id-token: write
     runs-on: ubuntu-latest
     steps:
+      - name: Import Secrets
+        uses: Infisical/secrets-action@v1.0.7
+        with:
+          method: "oidc"
+          env-slug: "dev"
+          project-slug: "github-g0zh"
+          identity-id: "1ffe6b17-29ef-47ed-a54c-0912bbe40542"
       - uses: actions/stale@v9
         with:
-          stale-issue-message: 'This issue is stale because it has been open 30 days with no activity. Remove stale label or comment or this will be closed in 5 days.'
-          stale-pr-message: 'This pull request is stale because it has been open 30 with no activity. Remove stale label or comment or this will be closed in 5 days.'
-          repo-token: ${secrets.NGLBOT}
+          stale-issue-message: 'This issue is stale because it has been open for 30 days with no activity. Remove stale label or comment or this will be closed in 5 days.'
+          stale-pr-message: 'This pull request is stale because it has been open for 30 with no activity. Remove stale label or comment or this will be closed in 5 days.'
+          repo-token: ${{env.NGLBOT}}
           days-before-stale: 30
           days-before-close: 5

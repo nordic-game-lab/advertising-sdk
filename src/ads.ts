@@ -89,7 +89,7 @@ const createAdvertisement = () => {
   }
 }
 
-     createAdvertisingCookieWithRandomUUID('ad_tracking', 30);
+     createAdvertisingCookieWithRandomUUID('ngl_user_id', 30);
      let initialized: boolean;
      
 

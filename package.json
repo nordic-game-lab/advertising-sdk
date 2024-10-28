@@ -5,7 +5,7 @@
   "main": "dist/ads.min.js",
   "scripts": {
     "test": "npx playwright test tests/sdk.test.js",
-    "build": "npx tsc && mkdir dist && npx uglifyjs ts/ads.js --module --compress --mangle -o dist/ads.min.js --source-map \"url='https://static.nordicgamelab.org/v1/ads.min.js.map'\"",
+    "build": "npx tsc && mkdir dist && npx uglifyjs ts/ads.js --module --compress --mangle -o dist/ads.min.js --source-map \"url='https://static.nordicgamelab.org/v1/ads.min.js.map'\" && echo \"$(echo -n '/**\n* @license Copyright (c) 2024 Nordic Game Lab LLC\n* You may not use this code without the express permission in writing of Nordic Game Lab LLC.\n*/\n'; cat dist/ads.min.js)\" > dist/ads.min.js",
     "lint": "npx eslint src/ads.ts"
   },
   "repository": {

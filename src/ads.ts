@@ -9,9 +9,10 @@
   } = window;
   const { hostname } = location;
   const { currentScript } = document;
-  console.log(currentScript);
+  const addContainer = document.getElementById('ad-container');
 
   if (!currentScript) return;
+  if(!addContainer) return;
   
   try {
      const _data = 'data-';
@@ -19,15 +20,25 @@
      const imageSize = attr(_data + 'image-size') || '100px';
      const hostUrl = attr(_data + 'host-url');
      const protocol = attr(_data + 'protocol') || 'https';
-     const apiHost =
-      hostUrl || 'api.nordicgamelab.org';
+     const apiHost = hostUrl || 'api.nordicgamelab.org';
      const endpoint = `${apiHost.replace(/\/$/, '')}/ads`;
      const siteId = attr(_data + 'site-id') || 'c3a8c1c5';
      const host = hostname;
+     const subDomain = host.split('.');
+
+     // Fetches an ad from the api. Example response is {
+     //"id": 1,
+     //"imageURL": "https://res.cloudinary.com/dkbe3sbtu/image/upload/v1715777083/Adverts/free-employee-training-software.png",
+     //"link": "https://offers.nordicgamelab.org/free-employee-training-software",
+     //"campaign": "free_training",
+     //"advertiserID": "01912efd-a6ef-7530-a160-b0d70597e290",
+     //"createdAt": "2024-09-05T02:20:32.304Z",
+     //"updatedAt": "2024-09-05T02:20:32.304Z"
+     //}
      const response = await fetch(`${protocol}://${endpoint}?siteid=${siteId}`);
      const adData = await response.json();
-     const subDomain = host.split('.');
-    // Creates the new link with all required utm parameters
+
+    // Uses the site the ad is hosted on to build the link
     let adLink;
     if(apiHost != 'api.nordicgamelab.org'){
         const redirectLink = `${adData.link}?utm_source=${subDomain[0]}&utm_medium=banner&utm_campaign=${adData.campaign}&ref=${host}`;
@@ -37,9 +48,11 @@
         adLink = `${adData.link}?utm_source=${subDomain[0]}&utm_medium=banner&utm_campaign=${adData.campaign}&ref=${host}`;
      }
  
+     if(document.cookie.includes('ngl_optOut=true')){
+      adLink = adLink + '&optOut=true';
+     }
      const anchorElement = document.createElement('a');
      anchorElement.href = adLink;
-     const addContainer = document.getElementById('ad-container');
      const imageElement = document.createElement('img');
      imageElement.src = adData.imageURL;
      imageElement.alt = 'Advertisement Image';
@@ -67,7 +80,9 @@ function getCookie(name: string) {
 
 // Create an advertising cookie with a random UUID
 function createAdvertisingCookieWithRandomUUID(name: string, daysToExpire: number) {
+
   const existingValue = getCookie(name);
+
   if(!existingValue){
   const randomUUID = generateUUID();
   const expires = new Date();
@@ -84,12 +99,15 @@ function createAdvertisingCookieWithRandomUUID(name: string, daysToExpire: numbe
 
 // Create the advertisement element
 const createAdvertisement = () => {
+
   if(addContainer){
+
   addContainer.appendChild(anchorElement);
   }
 }
-
+     if(!document.cookie.includes('ngl_optOut=true')){
      createAdvertisingCookieWithRandomUUID('ngl_user_id', 30);
+     }
      let initialized: boolean;
      
 

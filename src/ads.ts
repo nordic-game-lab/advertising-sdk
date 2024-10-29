@@ -35,7 +35,12 @@
      //"createdAt": "2024-09-05T02:20:32.304Z",
      //"updatedAt": "2024-09-05T02:20:32.304Z"
      //}
-     const response = await fetch(`${protocol}://${endpoint}?siteid=${siteId}`);
+     let response;
+     if(document.cookie.includes('ngl_optOut=true')){
+      response = await fetch(`${protocol}://${endpoint}?siteid=${siteId}&optOut=true`);
+     } else{
+      response = await fetch(`${protocol}://${endpoint}?siteid=${siteId}`);
+     }
      const adData = await response.json();
 
     // Uses the site the ad is hosted on to build the link
@@ -57,7 +62,20 @@
      imageElement.src = adData.imageURL;
      imageElement.alt = 'Advertisement Image';
      imageElement.style.width = imageSize;
- 
+     const ae = document.createElement('a');
+     ae.style.width = '10px';
+     ae.style.height = '10px';
+     const ie = document.createElement('img');
+     ie.src = 'https://static.nordicgamelab.org/info-circle-svgrepo-com.svg';
+     ie.style.width = '10px';
+     ie.style.height = '10px';
+     ie.alt = 'Information Icon';
+     ae.href = 'https://link.nordicgamelab.org/sXb7';
+     ae.style.position = 'absolute';
+     ae.style.top = '10px';
+     ae.style.right = '10px';
+
+     ae.appendChild(ie);
      anchorElement.appendChild(imageElement);
 
      // Generate a random UUID
@@ -101,8 +119,9 @@ function createAdvertisingCookieWithRandomUUID(name: string, daysToExpire: numbe
 const createAdvertisement = () => {
 
   if(addContainer){
-
+  addContainer.style.position = 'relative';
   addContainer.appendChild(anchorElement);
+  addContainer.appendChild(ae);
   }
 }
      if(!document.cookie.includes('ngl_optOut=true')){

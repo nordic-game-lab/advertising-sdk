@@ -63,12 +63,12 @@
      imageElement.alt = 'Advertisement Image';
      imageElement.style.width = imageSize;
      const ae = document.createElement('a');
-     ae.style.width = '10px';
-     ae.style.height = '10px';
      const ie = document.createElement('img');
      ie.src = 'https://static.nordicgamelab.org/info-circle-svgrepo-com.svg';
-     ie.style.width = '10px';
-     ie.style.height = '10px';
+     ae.style.width = '20px';
+     ae.style.height = '20px';
+     ie.style.width = '20px';
+     ie.style.height = '20px';
      ie.alt = 'Information Icon';
      ae.href = 'https://link.nordicgamelab.org/sXb7';
      ae.style.position = 'absolute';

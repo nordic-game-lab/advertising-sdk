@@ -31,7 +31,7 @@
      //"imageURL": "https://res.cloudinary.com/dkbe3sbtu/image/upload/v1715777083/Adverts/free-employee-training-software.png",
      //"link": "https://offers.nordicgamelab.org/free-employee-training-software",
      //"campaign": "free_training",
-     //"advertiserID": "01912efd-a6ef-7530-a160-b0d70597e290",
+     //"advertiserID": "1",
      //"createdAt": "2024-09-05T02:20:32.304Z",
      //"updatedAt": "2024-09-05T02:20:32.304Z"
      //}
@@ -42,6 +42,8 @@
       response = await fetch(`${protocol}://${endpoint}?siteid=${siteId}`);
      }
      const adData = await response.json();
+     const advertiserResponse = await fetch(`${protocol}://${apiHost.replace(/\/$/, '')}/api/advertiser/${adData.advertiserID}`);
+     const advertiserData = await advertiserResponse.json();
 
     // Uses the site the ad is hosted on to build the link
     let adLink;
@@ -57,24 +59,24 @@
       adLink = adLink + '&optOut=true';
      }
      const anchorElement = document.createElement('a');
-     anchorElement.href = adLink;
      const imageElement = document.createElement('img');
+     const ae = document.createElement('a');
+     const ie = document.createElement('img');
+
+     anchorElement.href = adLink;
      imageElement.src = adData.imageURL;
      imageElement.alt = 'Advertisement Image';
      imageElement.style.width = imageSize;
-     const ae = document.createElement('a');
-     const ie = document.createElement('img');
      ie.src = 'https://static.nordicgamelab.org/info-circle-svgrepo-com.svg';
      ae.style.width = '20px';
      ae.style.height = '20px';
      ie.style.width = '20px';
      ie.style.height = '20px';
      ie.alt = 'Information Icon';
-     ae.href = 'https://link.nordicgamelab.org/sXb7';
+     ae.href = `https://static.nordicgamelab.org/info.html?name=${escape(advertiserData.advertiser_name)}&description=${escape(advertiserData.description)}&link=${escape(advertiserData.link)}&adId=${adData.id}`;
      ae.style.position = 'absolute';
      ae.style.top = '10px';
      ae.style.right = '10px';
-
      ae.appendChild(ie);
      anchorElement.appendChild(imageElement);
 

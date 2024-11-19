@@ -1,6 +1,8 @@
 /** 
-* @license Copyright (c) 2024 Nordic Game Lab LLC
-* You may not use this code without the express permission in writing of Nordic Game Lab LLC.
+* @license MPL 2.0
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, You can obtain one at https://mozilla.org/MPL/2.0/.
 */
 (async window => {
   const {
@@ -20,7 +22,7 @@
      const imageSize = attr(_data + 'image-size') || '100px';
      const hostUrl = attr(_data + 'host-url');
      const protocol = attr(_data + 'protocol') || 'https';
-     const apiHost = hostUrl || 'api.nordicgamelab.org';
+     const apiHost = hostUrl || 'ads.nordicgamelab.org';
      const endpoint = `${apiHost.replace(/\/$/, '')}/ads`;
      const siteId = attr(_data + 'site-id') || 'c3a8c1c5';
      const host = hostname;

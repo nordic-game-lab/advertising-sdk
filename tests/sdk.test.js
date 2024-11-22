@@ -1,6 +1,8 @@
 /** 
-* @license Copyright (c) 2024 Nordic Game Lab LLC
-* You may not use this code without the express permission of Nordic Game Lab LLC in writing.
+* @license MPL 2.0
+* This Source Code Form is subject to the terms of the Mozilla Public
+* License, v. 2.0. If a copy of the MPL was not distributed with this
+* file, You can obtain one at https://mozilla.org/MPL/2.0/.
 */
 import { test, expect } from '@playwright/test';
 import express from "express";

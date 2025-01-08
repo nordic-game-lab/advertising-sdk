@@ -21,11 +21,11 @@ jobs:
         npm i
         npm run lint
         echo ${{github.ref}}
-        echo ${{contains(github.ref, 'refs/heads/v')}}
+        echo ${{contains(github.ref, 'refs/tags/v')}}
     - name: build
       run: npm run build
     - name: Deploy prod
-      if: ${{contains(github.ref, 'refs/heads/v')}}
+      if: ${{contains(github.ref, 'refs/tags/v')}}
       uses: ryand56/r2-upload-action@latest
       with:
         r2-account-id: ${{ secrets.R2_ACCOUNT_ID }}

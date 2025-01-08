@@ -4,6 +4,9 @@ on:
   release:
     types: [published]
   workflow_dispatch:
+  schedule:
+    - cron: '41 6 * * *'
+
 
 jobs:
   deploy:
@@ -19,7 +22,8 @@ jobs:
         npm run lint
     - name: build
       run: npm run build
-    - name: Deploy
+    - name: Deploy prod
+      if: ${{contains(github.ref, 'refs/heads/v')}}
       uses: ryand56/r2-upload-action@latest
       with:
         r2-account-id: ${{ secrets.R2_ACCOUNT_ID }}
@@ -28,3 +32,13 @@ jobs:
         r2-bucket: ${{ secrets.R2_BUCKET }}
         source-dir: dist
         destination-dir: sdks/ads
+    - name: Deploy dev
+      if: github.ref == 'refs/heads/main'
+      uses: ryand56/r2-upload-action@latest
+      with:
+        r2-account-id: ${{ secrets.R2_ACCOUNT_ID }}
+        r2-access-key-id: ${{ secrets.R2_ACCESS_KEY_ID }}
+        r2-secret-access-key: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+        r2-bucket: ${{ secrets.R2_BUCKET }}
+        source-dir: dist
+        destination-dir: sdks/dev/ads

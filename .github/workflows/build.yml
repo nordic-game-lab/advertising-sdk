@@ -20,7 +20,7 @@ jobs:
       run: |
         npm i
         npm run lint
-        echo ${{github.ref}
+        echo ${{github.ref}}
         echo ${{contains(github.ref, 'refs/heads/v')}}
     - name: build
       run: npm run build

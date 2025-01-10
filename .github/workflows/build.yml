@@ -24,23 +24,14 @@ jobs:
         echo ${{contains(github.ref, 'refs/tags/v')}}
     - name: build
       run: npm run build
-    - name: Deploy prod
-      if: ${{contains(github.ref, 'refs/tags/v')}}
-      uses: ryand56/r2-upload-action@latest
+    - name: Deploy SDK
+      uses: nordic-game-lab/r2-upload-action@v1.0
       with:
         r2-account-id: ${{ secrets.R2_ACCOUNT_ID }}
         r2-access-key-id: ${{ secrets.R2_ACCESS_KEY_ID }}
         r2-secret-access-key: ${{ secrets.R2_SECRET_ACCESS_KEY }}
         r2-bucket: ${{ secrets.R2_BUCKET }}
         source-dir: dist
-        destination-dir: sdks/ads
-    - name: Deploy dev
-      if: github.ref == 'refs/heads/main'
-      uses: ryand56/r2-upload-action@latest
-      with:
-        r2-account-id: ${{ secrets.R2_ACCOUNT_ID }}
-        r2-access-key-id: ${{ secrets.R2_ACCESS_KEY_ID }}
-        r2-secret-access-key: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-        r2-bucket: ${{ secrets.R2_BUCKET }}
-        source-dir: dist
-        destination-dir: sdks/dev/ads
+        prod-destination-dir: sdks/ads
+        dev-destination-dir: sdks/dev/ads
+        ref: github.ref

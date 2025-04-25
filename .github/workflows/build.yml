@@ -10,6 +10,9 @@ on:
 
 jobs:
   deploy:
+    permissions:
+        contents: read
+        id-token: write
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@cbb722410c2e876e24abbe8de2cc27693e501dcb
@@ -20,27 +23,32 @@ jobs:
       run: |
         npm i
         npm run lint
-        echo ${{github.ref}}
-        echo ${{contains(github.ref, 'refs/tags/v')}}
     - name: build
       run: npm run build
+    - name: Import Secrets
+      uses: Infisical/secrets-action@v1.0.11
+      with:
+        method: "oidc"
+        env-slug: "dev"
+        project-slug: "github-g0zh"
+        identity-id: "1ffe6b17-29ef-47ed-a54c-0912bbe40542"
     - name: Deploy prod
       if: ${{contains(github.ref, 'refs/tags/v')}}
       uses: ryand56/r2-upload-action@v1.4
       with:
-        r2-account-id: ${{ secrets.R2_ACCOUNT_ID }}
-        r2-access-key-id: ${{ secrets.R2_ACCESS_KEY_ID }}
-        r2-secret-access-key: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-        r2-bucket: ${{ secrets.R2_BUCKET }}
+        r2-account-id: ${{ env.CLOUDFLARE_ACCOUNT_ID }}
+        r2-access-key-id: ${{ env.R2_KEY_ID }}
+        r2-secret-access-key: ${{ env.R2_KEY_SECRET }}
+        r2-bucket: production
         source-dir: dist
         destination-dir: sdks/ads
     - name: Deploy dev
       if: github.ref == 'refs/heads/main'
       uses: ryand56/r2-upload-action@v1.4
       with:
-        r2-account-id: ${{ secrets.R2_ACCOUNT_ID }}
-        r2-access-key-id: ${{ secrets.R2_ACCESS_KEY_ID }}
-        r2-secret-access-key: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-        r2-bucket: ${{ secrets.R2_BUCKET }}
+        r2-account-id: ${{ env.CLOUDFLARE_ACCOUNT_ID }}
+        r2-access-key-id: ${{ env.R2_KEY_ID }}
+        r2-secret-access-key: ${{ env.R2_KEY_SECRET }}
+        r2-bucket: production
         source-dir: dist
         destination-dir: sdks/dev/ads

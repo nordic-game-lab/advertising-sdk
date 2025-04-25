@@ -22,7 +22,7 @@
      const imageSize = attr(_data + 'image-size') || '100px';
      const hostUrl = attr(_data + 'host-url');
      const protocol = attr(_data + 'protocol') || 'https';
-     const apiHost = hostUrl || 'ads.nordicgamelab.org';
+     const apiHost = hostUrl || 'api.nordicgamelab.org';
      const endpoint = `${apiHost.replace(/\/$/, '')}/ads`;
      const siteId = attr(_data + 'site-id') || 'c3a8c1c5';
      const host = hostname;

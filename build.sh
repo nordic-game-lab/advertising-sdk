@@ -1,7 +1,6 @@
 #!/bin/bash
 set -o pipefail
 
-cd ..
 echo "Installing dependencies"
 npm i
 echo "Linting code"

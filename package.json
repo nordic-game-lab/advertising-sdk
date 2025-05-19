@@ -5,7 +5,7 @@
   "main": "dist/ads.min.js",
   "scripts": {
     "test": "npm run lint",
-    "build": "chmod +x .ngl/build.sh && .ngl/build.sh",
+    "build": "chmod +x build.sh && ./build.sh",
     "lint": "npx eslint src/ads.ts"
   },
   "repository": {

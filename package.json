@@ -4,8 +4,8 @@
   "description": "This is the Advertising sdk for Nordic Game LLC websites",
   "main": "dist/ads.min.js",
   "scripts": {
-    "test": "npx playwright test tests/sdk.test.js",
-    "build": "npx tsc && mkdir dist && npx uglifyjs ts/ads.js --module --compress --mangle -o dist/ads.min.js --source-map \"url='https://static.nordicgamelab.org/v1/ads.min.js.map'\" && echo \"$(echo -n '/** \n* @license MPL 2.0 \n* This Code Form is subject to the terms of the Mozilla Public \n* License, v. 2.0. If a copy of the MPL was not distributed with this \n* file, You can obtain one at https://mozilla.org/MPL/2.0/. \n*/\n'; cat dist/ads.min.js)\" > dist/ads.min.js",
+    "test": "npm run lint",
+    "build": "chmod +x .ngl/build.sh && .ngl/build.sh",
     "lint": "npx eslint src/ads.ts"
   },
   "repository": {

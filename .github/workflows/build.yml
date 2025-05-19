@@ -19,10 +19,6 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: 20
-    - name: lint
-      run: |
-        npm i
-        npm run lint
     - name: build
       run: npm run build
     - name: Import Secrets

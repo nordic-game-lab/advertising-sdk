@@ -1,6 +1,6 @@
 {
   "name": "advertising-sdk",
-  "version": "4.0.5",
+  "version": "4.0.6",
   "description": "This is the Advertising sdk for Nordic Game LLC websites",
   "main": "dist/ads.min.js",
   "scripts": {
@@ -23,7 +23,7 @@
     "@eslint/js": "^9.9.0",
     "eslint": "^9.9.0",
     "express": "^4.19.2",
-    "globals": "^15.9.0",
+    "globals": "^16.0.0",
     "typescript-eslint": "^8.0.1",
     "uglify-js": "^3.17.4"
   },

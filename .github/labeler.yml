@@ -27,7 +27,7 @@ comments:
 #    - 'include' patterns will associate a label if any of these patterns match
 #    - 'exclude' patterns will ignore this label if any of these patterns match
 labels:
-  'bug':
+  'Type:bug':
     include:
       - '\bbug[s]?\b'
     exclude: []
@@ -36,25 +36,25 @@ labels:
       - '\bhelp( me)?\b'
     exclude:
       - '\b\[test(ing)?\]\b'
-  'enhancement':
+  'Type:enhancement':
     include:
       - '\bfeat\b'
     exclude: []
-  'chore':
+  'Type:chore':
     include:
       - '\bUpdate\b'
       - '\bchore\b'
     exclude: []
-  'updates':
+  'Type:updates':
     include:
       - '\bUpdate\b'
       - '\bchore\b'
     exclude: []
-  'builder':
+  'Type:builder':
     include:
       - '\bngl-build\b'
     exclude: []
-  'ci':
+  'Type:ci':
     include:
       - '\baction\b'
       - '\bci\b'

@@ -5,25 +5,53 @@ on:
 
 jobs:
   validate:
+    permissions:
+        contents: read
+        id-token: write
     name: Validate PR
     runs-on: ubuntu-latest
     steps:
+      - name: Import Secrets
+        uses: Infisical/secrets-action@v1.0.11
+        with:
+          method: "oidc"
+          env-slug: "dev"
+          project-slug: "github-g0zh"
+          identity-id: "1ffe6b17-29ef-47ed-a54c-0912bbe40542"
       - name: Validate Label
         uses: actions/github-script@v6
         with:
+          github-token: ${{env.NGLBOT}}
           script: |
             const labels = context.payload.pull_request.labels.map(label => label.name);
             const requiredRegex = new RegExp('^Type:');
             const hasRequiredLabel = labels.some(label => requiredRegex.test(label));
             if (!hasRequiredLabel) {
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: 'This PR must have a label starting with 'Type:'.'
+              })
               core.setFailed("This PR must have a label starting with 'Type:'.");
             }
       - name: Validate Description
         uses: actions/github-script@v6
         with:
+          github-token: ${{env.NGLBOT}}
           script: |
             const body = context.payload.pull_request.body;
             if (!body) {
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: `
+                  The pr is required to have a description. 
+                  Provide detail with **what** was changed, 
+                  **why** it was changed, and **how** it was changed.
+                `
+              })
               core.setFailed(`
                 The pr is required to have a description. 
                 Provide detail with **what** was changed, 

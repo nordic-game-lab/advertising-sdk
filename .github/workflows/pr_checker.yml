@@ -1,0 +1,32 @@
+name: PR Validation
+on:
+  pull_request:
+    types: [opened, edited, synchronize, labeled, unlabeled, milestoned, demilestoned]
+
+jobs:
+  validate:
+    name: Validate PR
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate Label
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const labels = context.payload.pull_request.labels.map(label => label.name);
+            const requiredRegex = new RegExp('^Type:');
+            const hasRequiredLabel = labels.some(label => requiredRegex.test(label));
+            if (!hasRequiredLabel) {
+              core.setFailed("This PR must have a label starting with 'Type:'.");
+            }
+      - name: Validate Description
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const body = context.payload.pull_request.body;
+            if (!body) {
+              core.setFailed(`
+                The pr is required to have a description. 
+                Provide detail with **what** was changed, 
+                **why** it was changed, and **how** it was changed.
+              `);
+            }

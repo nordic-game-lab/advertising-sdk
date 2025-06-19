@@ -1,7 +1,7 @@
 # Advertising SDK
 This is the advertising SDK developed by Nordic Game Lab, LLC.
 
-To use this SDK you need to build your own implementation of the server, or use our server.
+To use this SDK you need to build your own implementation of the server, [or use our server](https://github.com/nordic-game-lab/ad-server).
 
 ## Usage
 

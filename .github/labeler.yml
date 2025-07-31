@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: Andrew Ball <andrew@aball.dev>
+# SPDX-License-Identifier: MPL-2.0
+
 # labeler "full" schema
 # vscode uses the wrong schema when checking this file
 # the schema can be found here: https://github.com/jimschubert/labeler-action

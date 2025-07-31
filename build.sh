@@ -1,4 +1,6 @@
 #!/bin/bash
+# SPDX-FileCopyrightText: Andrew Ball <andrew@aball.dev>
+# SPDX-License-Identifier: MPL-2.0
 set -o pipefail
 
 echo "Installing dependencies"

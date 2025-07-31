@@ -1,8 +1,12 @@
+// SPDX-FileCopyrightText: Andrew Ball <andrew@aball.dev>
+// SPDX-License-Identifier: MPL-2.0
 /** 
 * @license MPL 2.0
 * This Source Code Form is subject to the terms of the Mozilla Public
 * License, v. 2.0. If a copy of the MPL was not distributed with this
 * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+* 
+* Copyright Nordic Game Lab, LLC. and Andrew Ball.
 */
 (async window => {
   const {

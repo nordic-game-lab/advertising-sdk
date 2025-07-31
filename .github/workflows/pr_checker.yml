@@ -1,3 +1,5 @@
+# SPDX-FileCopyrightText: Andrew Ball <andrew@aball.dev>
+# SPDX-License-Identifier: MPL-2.0
 name: PR Validation
 on:
   pull_request:

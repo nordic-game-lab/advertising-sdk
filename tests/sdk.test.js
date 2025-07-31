@@ -1,3 +1,5 @@
+// SPDX-FileCopyrightText: Andrew Ball <andrew@aball.dev>
+// SPDX-License-Identifier: MPL-2.0
 /** 
 * @license MPL 2.0
 * This Source Code Form is subject to the terms of the Mozilla Public

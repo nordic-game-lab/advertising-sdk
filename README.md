@@ -47,3 +47,6 @@ That should look like this
     "updatedAt": "2024-10-31T01:01:46.823Z"
 }
 ```
+
+## License
+This project is licensed under the Mozilla Public License Version 2.0

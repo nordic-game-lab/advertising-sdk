@@ -24,7 +24,7 @@ jobs:
     - name: build
       run: npm run build
     - name: Import Secrets
-      uses: Infisical/secrets-action@v1.0.12
+      uses: Infisical/secrets-action@v1.0.13
       with:
         method: "oidc"
         env-slug: "dev"

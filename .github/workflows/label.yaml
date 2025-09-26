@@ -17,7 +17,7 @@ jobs:
 
     steps:
     - name: Import Secrets
-      uses: Infisical/secrets-action@v1.0.14
+      uses: Infisical/secrets-action@v1.0.15
       with:
         method: "oidc"
         env-slug: "dev"
